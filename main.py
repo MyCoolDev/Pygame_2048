@@ -1,6 +1,5 @@
 from GameEngine import GameEngine
 
-
 def main():
     pass
 
