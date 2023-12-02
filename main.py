@@ -1,7 +1,7 @@
 from GameEngine import GameEngine
 
 def main():
-    pass
+    GameEngine().start()
 
 
 if __name__ == '__main__':
