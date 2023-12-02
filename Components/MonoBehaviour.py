@@ -1,4 +1,6 @@
 import pygame
+
+
 class MonoBehaviour:
     def __init__(self, size: pygame.Vector2, position: pygame.Vector2, color: tuple):
         self.size = size
