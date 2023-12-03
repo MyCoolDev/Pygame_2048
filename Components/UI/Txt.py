@@ -3,7 +3,7 @@ pygame.font.init()
 
 
 class Text:
-    def __init__(self, txt: str, font: str, font_size: int, position: pygame.Vector2, color: tuple):
+    def __init__(self, txt: str, font: str, font_size: int, position: pygame.Vector2, color: tuple, alpha=255):
         self.txt = txt
         self.font_name = font
         self.font = pygame.font.SysFont(font, font_size)
@@ -11,7 +11,12 @@ class Text:
         self.font_size = font_size
         self.color = color
         self.text_surface = self.font.render(txt, True, color)
+        self.alpha = alpha
+        self.update_alpha()
         self.position = pygame.Vector2(self.abs_position.x - self.text_surface.get_width() / 2, self.abs_position.y - self.text_surface.get_height() / 2)
+
+    def update_alpha(self):
+        self.text_surface.set_alpha(self.alpha)
 
     def clone(self):
         return Text(self.txt, self.font_name, self.font_size, self.position, self.color)
@@ -30,6 +35,9 @@ class Text:
     def update_position(self, position: pygame.Vector2):
         self.abs_position = position
         self.__generate_position()
+
+    def update_color(self, color: tuple or pygame.Color):
+        self.text_surface = self.font.render(self.txt, True, color)
 
     def render(self, surface: pygame.Surface):
         surface.blit(self.text_surface, self.position)

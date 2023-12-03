@@ -15,7 +15,6 @@ class Grid(MonoBehaviour):
         self.init_grid()
         self.score = 0
 
-
     def init_grid(self):
         for i in range(self.grid_size):
             current = []
