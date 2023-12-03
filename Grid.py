@@ -13,6 +13,8 @@ class Grid(MonoBehaviour):
         self.grid = []
         self.box_size = pygame.Vector2((self.size.x - (self.grid_size + 1) * gap) / self.grid_size, (self.size.y - (self.grid_size + 1) * gap) / self.grid_size)
         self.init_grid()
+        self.score = 0
+
 
     def init_grid(self):
         for i in range(self.grid_size):
@@ -68,7 +70,7 @@ class Grid(MonoBehaviour):
                     for z in range(i + 1, self.grid_size):
                         if self.grid[z][k] != -1:
                             if self.grid[z][k].value == self.grid[i][k].value and (z, k) not in handled:
-                                print(self.grid[z][k])
+                                self.score += self.grid[z][k].value * 2
                                 self.grid[z][k].mult_value()
                                 self.grid[i][k] = -1
                                 handled.append((z, k))
@@ -98,7 +100,7 @@ class Grid(MonoBehaviour):
                     for z in range(i - 1, -1, -1):
                         if self.grid[z][k] != -1:
                             if self.grid[z][k].value == self.grid[i][k].value and (z, k) not in handled:
-                                print(self.grid[z][k])
+                                self.score += self.grid[z][k].value * 2
                                 self.grid[z][k].mult_value()
                                 self.grid[i][k] = -1
                                 handled.append((z, k))
@@ -129,7 +131,7 @@ class Grid(MonoBehaviour):
                     for z in range(i + 1, self.grid_size):
                         if self.grid[k][z] != -1:
                             if self.grid[k][z].value == self.grid[k][i].value and (k, z) not in handled:
-                                print(k, z)
+                                self.score += self.grid[k][z].value * 2
                                 self.grid[k][z].mult_value()
                                 self.grid[k][i] = -1
                                 handled.append((k, z))
@@ -160,7 +162,7 @@ class Grid(MonoBehaviour):
                     for z in range(i - 1, -1, -1):
                         if self.grid[k][z] != -1:
                             if self.grid[k][z].value == self.grid[k][i].value and (k, z) not in handled:
-                                print(k, z)
+                                self.score += self.grid[k][z].value * 2
                                 self.grid[k][z].mult_value()
                                 self.grid[k][i] = -1
                                 handled.append((k, z))
@@ -183,6 +185,9 @@ class Grid(MonoBehaviour):
 
         self.update_positions()
         self.create_random_box()
+
+    def get_score(self):
+        return self.score
 
     def update_positions(self):
         for i in range(self.grid_size):
