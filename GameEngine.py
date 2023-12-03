@@ -24,10 +24,10 @@ class GameEngine:
 
     def start(self):
         while self.running:
+            self.reset()
+
             self.events = pygame.event.get()
             self.handle_events()
-
-            self.reset()
 
             self.update()
             self.render()
