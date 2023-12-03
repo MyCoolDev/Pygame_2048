@@ -23,6 +23,8 @@ class Grid(MonoBehaviour):
 
             self.grid.append(current)
 
+        self.create_random_box()
+
     def create_random_box(self):
         # create a random (position) box with random choice(2, 4)
         positions = []
@@ -30,6 +32,8 @@ class Grid(MonoBehaviour):
             for k in range(self.grid_size):
                 if self.grid[i][k] == -1:
                     positions.append((k, i))
+
+        # this is a grid position: (0, 1) or (2, 1)
         pos = random.choice(positions)
 
     def handle_input(self, action: tuple):
@@ -99,3 +103,8 @@ class Grid(MonoBehaviour):
 
     def render(self, surface: pygame.Surface):
         pygame.draw.rect(surface, self.color, pygame.Rect(self.position, self.size))
+
+        for i in self.grid:
+            for k in self.grid[i]:
+                if k == -1:
+                    pass
