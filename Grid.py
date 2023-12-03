@@ -88,7 +88,6 @@ class Grid(MonoBehaviour):
                         self.grid[best[0]][best[1]] = self.grid[i][k]
                         self.grid[i][k] = -1
 
-
         elif action == "up":
             for i in range(1, self.grid_size):
                 for k in range(self.grid_size):
@@ -129,10 +128,10 @@ class Grid(MonoBehaviour):
                     # check for sum to add to
                     for z in range(i + 1, self.grid_size):
                         if self.grid[k][z] != -1:
-                            if self.grid[k][z].value == self.grid[k][z].value and (k, z) not in handled:
-                                print(self.grid[k][z])
+                            if self.grid[k][z].value == self.grid[k][i].value and (k, z) not in handled:
+                                print(k, z)
                                 self.grid[k][z].mult_value()
-                                self.grid[k][z] = -1
+                                self.grid[k][i] = -1
                                 handled.append((k, z))
                             break
 
@@ -147,6 +146,7 @@ class Grid(MonoBehaviour):
                             best = (k, z)
 
                     if best != -1:
+                        print(best)
                         self.grid[best[0]][best[1]] = self.grid[k][i]
                         self.grid[k][i] = -1
 
@@ -155,18 +155,31 @@ class Grid(MonoBehaviour):
                 for k in range(self.grid_size):
                     if self.grid[k][i] == -1:
                         continue
-                    for z in range(0, i):
-                        if self.grid[k][z] == -1:
-                            self.grid[k][z] = self.grid[k][i]
-                            self.grid[k][i] = -1
-                            break
-                        else:
+
+                    # check for sum to add to
+                    for z in range(i - 1, -1, -1):
+                        if self.grid[k][z] != -1:
                             if self.grid[k][z].value == self.grid[k][i].value and (k, z) not in handled:
-                                print(self.grid[k][z].value, self.grid[k][i].value)
+                                print(k, z)
                                 self.grid[k][z].mult_value()
                                 self.grid[k][i] = -1
                                 handled.append((k, z))
-                                break
+                            break
+
+                    # if 'sumed' continue
+                    if self.grid[k][i] == -1:
+                        continue
+
+                    # check for 'best' empty space
+                    best = -1
+                    for z in range(i - 1, -1, -1):
+                        if self.grid[k][z] == -1:
+                            best = (k, z)
+
+                    if best != -1:
+                        print(best)
+                        self.grid[best[0]][best[1]] = self.grid[k][i]
+                        self.grid[k][i] = -1
 
         self.update_positions()
         self.create_random_box()
