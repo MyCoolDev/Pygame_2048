@@ -1,5 +1,8 @@
 import pygame
+
+import Colors
 import config
+from Grid import Grid
 
 
 class GameEngine:
@@ -12,6 +15,12 @@ class GameEngine:
         self.running = True
         self.clock = pygame.time.Clock()
         self.dt = 0
+
+        self.grid = None
+        self.init_vars()
+
+    def init_vars(self):
+        self.grid = Grid(pygame.Vector2(500), pygame.Vector2(100, 100), (255, 255, 255), (255, 0, 0), 3, 10)
 
     def start(self):
         while self.running:
@@ -37,7 +46,7 @@ class GameEngine:
         self.screen.fill("black")
 
     def update(self):
-        pass
+        self.grid.update(self.dt, self.events)
 
     def render(self):
-        pass
+        self.grid.render(self.screen)
