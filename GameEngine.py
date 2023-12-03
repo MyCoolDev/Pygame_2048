@@ -20,7 +20,7 @@ class GameEngine:
         self.init_vars()
 
     def init_vars(self):
-        self.grid = Grid(pygame.Vector2(500), pygame.Vector2(100, 100), (255, 255, 255), (255, 0, 0), 3, 10)
+        self.grid = Grid(pygame.Vector2(600), pygame.Vector2((self.screen.get_width() - 600) / 2, (self.screen.get_height() - 600) / 2), (255, 255, 255), (50, 50, 50), 4, 5)
 
     def start(self):
         while self.running:

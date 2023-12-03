@@ -1,11 +1,35 @@
 import pygame
+pygame.font.init()
+
+
 class Text:
-    def __init__(self, txt: str, font: str, size: int, position: pygame.Vector2, color: tuple):
+    def __init__(self, txt: str, font: str, font_size: int, position: pygame.Vector2, color: tuple):
         self.txt = txt
-        self.font = font
-        self.size = size
-        self.position = position
-        self.color: color
+        self.font_name = font
+        self.font = pygame.font.SysFont(font, font_size)
+        self.abs_position = position
+        self.font_size = font_size
+        self.color = color
+        self.text_surface = self.font.render(txt, True, color)
+        self.position = pygame.Vector2(self.abs_position.x - self.text_surface.get_width() / 2, self.abs_position.y - self.text_surface.get_height() / 2)
 
+    def clone(self):
+        return Text(self.txt, self.font_name, self.font_size, self.position, self.color)
 
+    def __create_text_surface(self):
+        self.text_surface = self.font.render(self.txt, True, self.color)
+        self.__generate_position()
 
+    def __generate_position(self):
+        self.position = pygame.Vector2(self.abs_position.x - self.text_surface.get_width() / 2, self.abs_position.y - self.text_surface.get_height() / 2)
+
+    def update_text(self, new_text: str):
+        self.txt = new_text
+        self.__create_text_surface()
+
+    def update_position(self, position: pygame.Vector2):
+        self.abs_position = position
+        self.__generate_position()
+
+    def render(self, surface: pygame.Surface):
+        surface.blit(self.text_surface, self.position)
