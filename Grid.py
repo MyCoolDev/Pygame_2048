@@ -1,5 +1,6 @@
 import pygame
 import random
+from Box import Box
 from Components.MonoBehaviour import MonoBehaviour
 
 
@@ -24,7 +25,12 @@ class Grid(MonoBehaviour):
 
     def create_random_box(self):
         # create a random (position) box with random choice(2, 4)
-        pass
+        positions = []
+        for i in range(self.grid_size):
+            for k in range(self.grid_size):
+                if self.grid[i][k] == -1:
+                    positions.append((k, i))
+        pos = random.choice(positions)
 
     def handle_input(self, action: tuple):
         # i - current row
