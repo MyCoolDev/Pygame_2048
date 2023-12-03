@@ -10,7 +10,7 @@ class Grid(MonoBehaviour):
         self.gap = gap
 
     def update(self, dt: float, events: list):
-        self.position = positon
+       pass
 
     def render(self, surface: pygame.Surface):
         pygame.draw.rect(surface, self.color, pygame.Rect(self.position, self.size))
