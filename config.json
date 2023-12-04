@@ -1,3 +1,5 @@
 {
-  "ScreenResolution": [850, 1000]
+  "FirstRun": false,
+  "ScreenResolution": [850, 1000],
+  "BestScore": 0
 }
