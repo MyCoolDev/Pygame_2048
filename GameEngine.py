@@ -12,7 +12,6 @@ class GameEngine:
         pygame.init()
 
         self.screen = pygame.display.set_mode((config.config["ScreenResolution"]))
-        pygame.display.set_caption("2048")
         self.events = None
 
         self.state = "game"
@@ -44,9 +43,6 @@ class GameEngine:
 
         self.txt = "Score: 0"
         self.text = Text(self.txt, "Arial", 30, pygame.Vector2(100), (255, 255, 255))
-
-        self.txt2 = "Game Over"
-        self.text2 = Text(self.txt2, "Arial", 50, pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2), (255, 255, 255))
 
     def init_vars(self):
         self.grid = Grid(pygame.Vector2(600), pygame.Vector2((self.screen.get_width() - 600) / 2, (self.screen.get_height() - 600) / 2), (255, 255, 255), (50, 50, 50), 4, 5)
@@ -112,16 +108,9 @@ class GameEngine:
 
     def update(self):
         if self.state == "game":
-            if self.grid.game_over():
-                print("Game Over")
-                self.state = "game_over"
             self.grid.update(self.dt, self.events)
             score = self.grid.get_score()
             self.txt = "score: " + str(score)
-            self.text.update_text(self.txt)
-        elif self.state == "game_over":
-            over = self.grid.get_game_over_msg()
-            self.txt = str(over)
             self.text.update_text(self.txt)
 
     def render(self):
@@ -131,6 +120,3 @@ class GameEngine:
         elif self.state == "game":
             self.grid.render(self.screen)
             self.text.render(self.screen)
-        elif self.state == "game_over":
-            self.text2.render(self.screen)
-
