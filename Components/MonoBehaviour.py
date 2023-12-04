@@ -10,5 +10,5 @@ class MonoBehaviour:
     def update(self, dt: float, events: list):
         pass
 
-    def render(self, surface: pygame.Surface):
-        pygame.draw.rect(surface, self.color, pygame.Rect(self.position, self.size))
+    def render(self, surface: pygame.Surface) -> pygame.Rect:
+        return pygame.draw.rect(surface, self.color, pygame.Rect(self.position, self.size))

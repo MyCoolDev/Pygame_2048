@@ -36,6 +36,11 @@ class Text:
         self.abs_position = position
         self.__generate_position()
 
+    def update_font_size(self, new_size: int):
+        self.font_size = new_size
+        self.font = pygame.font.SysFont(self.font_name, self.font_size)
+        self.__create_text_surface()
+
     def update_color(self, color: tuple or pygame.Color):
         self.text_surface = self.font.render(self.txt, True, color)
 
