@@ -55,6 +55,8 @@ class GameEngine:
         self.txt2 = "Game Over"
         self.text2 = Text(self.txt2, "Arial", 50, pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 2), (255, 255, 255))
 
+        self.txt3 = "Best: 0"
+        self.text3 = Text(self.txt3, "Arial", 30, pygame.Vector2(200, 100), (255, 255, 255))
     def init_vars(self):
         self.grid = Grid(pygame.Vector2(600), pygame.Vector2((self.screen.get_width() - 600) / 2, (self.screen.get_height() - 600) / 2), (255, 255, 255), (50, 50, 50), 4, 5)
 
@@ -128,10 +130,11 @@ class GameEngine:
             if self.grid.game_over():
                 print("Game Over")
                 self.state = "game_over"
-            self.grid.update(self.dt, self.events)
-            score = self.grid.get_score()
-            self.txt = "score: " + str(score)
-            self.text.update_text(self.txt)
+            else:
+                self.grid.update(self.dt, self.events)
+                score = self.grid.get_score()
+                self.txt = "Score: " + str(score)
+                self.text.update_text(self.txt)
         elif self.state == "game_over":
             over = self.grid.get_game_over_msg()
             self.txt = str(over)
@@ -144,6 +147,7 @@ class GameEngine:
         elif self.state == "game":
             self.grid.render(self.screen)
             self.text.render(self.screen)
+            self.text3.render(self.screen)
         elif self.state == "game_over":
             self.text2.render(self.screen)
 
