@@ -14,8 +14,6 @@ class Grid(MonoBehaviour):
         self.box_size = pygame.Vector2((self.size.x - (self.grid_size + 1) * gap) / self.grid_size, (self.size.y - (self.grid_size + 1) * gap) / self.grid_size)
         self.init_grid()
         self.score = 0
-        self.over = "Game Over"
-
 
     def init_grid(self):
         for i in range(self.grid_size):
@@ -189,19 +187,6 @@ class Grid(MonoBehaviour):
 
     def get_score(self):
         return self.score
-
-    #true if game is over
-    def game_over(self):
-        for i in range(self.grid_size):
-            for j in range(self.grid_size):
-                if self.grid[i][j] == -1:
-                    return False
-        return True
-
-    def get_game_over_msg(self):
-        return self.over
-
-
 
     def update_positions(self):
         for i in range(self.grid_size):
