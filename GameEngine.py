@@ -59,15 +59,15 @@ class GameEngine:
         self.text = Text(self.txt, "Poppins", 30, pygame.Vector2(100), (255, 255, 255))
 
         self.txt2 = "Game Over"
-        self.text2 = Text(self.txt2, "Poppins", 50, pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 5), (255, 255, 255))
+        self.text2 = Text(self.txt2, "Poppins", 77, pygame.Vector2(self.screen.get_width() / 2, self.screen.get_height() / 5), (255, 255, 255))
 
         self.txt3 = "Best: 0"
         self.text3 = Text(self.txt3, "Poppins", 30, pygame.Vector2(200, 100), (255, 255, 255))
 
         # game over buttons
-        self.restart_button = Button(pygame.Vector2(250, 70), pygame.Vector2(self.screen.get_width() / 2, 4 * self.screen.get_height() / 5), (68, 148, 206), "Restart", "Poppins", 60, (255, 255, 255), border_radius=10)
-        self.back_to_menu_button = Button(pygame.Vector2(250, 70), pygame.Vector2(self.screen.get_width() / 2, 4 * self.screen.get_height() / 5 + 80), (153, 128, 106), "Back To Menu", "Poppins", 60, (255, 255, 255), border_radius=10)
-        self.quit = Button(pygame.Vector2(250, 70), pygame.Vector2(self.screen.get_width() / 2, 4 * self.screen.get_height() / 5 + 160), (206, 68, 68), "Quit", "Poppins", 60, (255, 255, 255), border_radius=10)
+        self.restart_button = Button(pygame.Vector2(280, 70), pygame.Vector2(self.screen.get_width() / 2, 3 * self.screen.get_height() / 5), (68, 148, 206), "Restart", "Poppins", 50, (255, 255, 255), border_radius=10)
+        self.back_to_menu_button = Button(pygame.Vector2(280, 70), pygame.Vector2(self.screen.get_width() / 2, 3 * self.screen.get_height() / 5 + 80), (153, 128, 106), "Back To Menu", "Poppins", 50, (255, 255, 255), border_radius=10)
+        self.quit = Button(pygame.Vector2(280, 70), pygame.Vector2(self.screen.get_width() / 2, 3 * self.screen.get_height() / 5 + 160), (206, 68, 68), "Quit", "Poppins", 50, (255, 255, 255), border_radius=10)
 
     def init_vars(self):
         self.grid = Grid(pygame.Vector2(600), pygame.Vector2((self.screen.get_width() - 600) / 2, (self.screen.get_height() - 600) / 2), (255, 255, 255), (50, 50, 50), 4, 5)
@@ -168,6 +168,15 @@ class GameEngine:
             over = self.grid.get_game_over_msg()
             self.txt = str(over)
             self.text.update_text(self.txt)
+            if self.quit.update(self.dt, self.events):
+                pygame.quit()
+                quit()
+            if self.back_to_menu_button.update(self.dt, self.events):
+                self.state = "menu"
+                self.init_vars()
+            if self.restart_button.update(self.dt, self.events):
+                self.state = "game"
+                self.init_vars()
 
     def render(self):
         if self.state == "intro":
@@ -187,3 +196,6 @@ class GameEngine:
 
         elif self.state == "game_over":
             self.text2.render(self.screen)
+            self.restart_button.render(self.screen)
+            self.back_to_menu_button.render(self.screen)
+            self.quit.render(self.screen)
